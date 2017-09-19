@@ -10,7 +10,7 @@ from stresstest_api.database.models import Scenario
 
 log = logging.getLogger(__name__)
 
-ns = api.namespace('features/scenarios', description='Operations related to testing scenarios')
+ns = api.namespace('scenarios', description='Operations related to testing scenarios')
 
 
 @ns.route('/')
