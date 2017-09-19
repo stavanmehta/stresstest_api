@@ -2,7 +2,7 @@ import logging
 
 from flask import request
 from flask_restplus import Resource
-from stresstest_api.api.testing.business import create_testing_scenario, update_scenario, delete_scenario
+from stresstest_api.api.testing.business import create_scenario, update_scenario, delete_scenario
 from stresstest_api.api.testing.serializers import testing_scenario, page_of_testing_scenarios
 from stresstest_api.api.testing.parsers import pagination_arguments
 from stresstest_api.api.restplus import api
@@ -38,7 +38,7 @@ class ScenariosCollection(Resource):
         Creates a new testing feature.
         """
         data = request.json
-        create_testing_scenario(data)
+        create_scenario(data)
         return None, 201
 
 

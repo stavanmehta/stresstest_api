@@ -1,11 +1,11 @@
 import logging
-
+import json
 from flask import request
 from flask_restplus import Resource
 from stresstest_api.api.testing.business import create_feature, delete_feature, update_feature
-from stresstest_api.api.testing.serializers import feature, feature_with_scenarios
+from stresstest_api.api.testing.serializers import feature, feature_with_scenarios, testing_scenario
 from stresstest_api.api.restplus import api
-from stresstest_api.database.models import Feature
+from stresstest_api.database.models import Feature, Scenario
 
 log = logging.getLogger(__name__)
 
@@ -74,3 +74,16 @@ class FeatureItem(Resource):
         """
         delete_feature(id)
         return None, 204
+
+
+@ns.route('/<int:id>/scenarios')
+@api.response(404, 'Scenarios not found not found.')
+class FeatureScenarios(Resource):
+
+    @api.marshal_with(testing_scenario)
+    def get(self, id):
+        """
+        Returns a feature with a list of posts.
+        """
+        scenarios = Scenario.query.filter(Scenario.feature_id == id).all()
+        return scenarios
