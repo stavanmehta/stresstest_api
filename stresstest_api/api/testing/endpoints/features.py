@@ -3,13 +3,13 @@ import logging
 from flask import request
 from flask_restplus import Resource
 from stresstest_api.api.testing.business import create_feature, delete_feature, update_feature
-from stresstest_api.api.testing.serializers import feature, feature_with_posts
+from stresstest_api.api.testing.serializers import feature, feature_with_scenarios
 from stresstest_api.api.restplus import api
 from stresstest_api.database.models import Feature
 
 log = logging.getLogger(__name__)
 
-ns = api.namespace('testing/features', description='Operations related to testing features')
+ns = api.namespace('features', description='Operations related to testing features')
 
 
 @ns.route('/')
@@ -38,7 +38,7 @@ class FeatureCollection(Resource):
 @api.response(404, 'Feature not found.')
 class FeatureItem(Resource):
 
-    @api.marshal_with(feature_with_posts)
+    @api.marshal_with(feature_with_scenarios)
     def get(self, id):
         """
         Returns a feature with a list of posts.

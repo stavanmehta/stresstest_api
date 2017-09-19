@@ -26,6 +26,6 @@ feature = api.model('Blog feature', {
     'name': fields.String(required=True, description='Feature name'),
 })
 
-feature_with_posts = api.inherit('Testing feature with posts', feature, {
-    'posts': fields.List(fields.Nested(testing_scenario))
+feature_with_scenarios = api.inherit('Testing feature with posts', feature, {
+    'scenarios': fields.List(fields.Nested(testing_scenario))
 })

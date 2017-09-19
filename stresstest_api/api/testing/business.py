@@ -1,12 +1,12 @@
 from stresstest_api.database import db
-from stresstest_api.database.models import Scenario, Feature, Step, StepRequest, StepValidation
+from stresstest_api.database.models import Scenario, Feature #Step, StepRequest, StepValidation
 
 
 def create_testing_scenario(data):
     title = data.get('title')
     body = data.get('body')
     feature_id = data.get('feature_id')
-    step_ids = data.get('step_ids')
+    # step_ids = data.get('step_ids')
     feature = Feature.query.filter(Feature.id == feature_id).one()
     scenario = Scenario(title, body, feature)
     db.session.add(scenario)

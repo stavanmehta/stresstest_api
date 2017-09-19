@@ -10,7 +10,7 @@ from stresstest_api.database.models import Scenario
 
 log = logging.getLogger(__name__)
 
-ns = api.namespace('testing/scenarios', description='Operations related to testing scenarios')
+ns = api.namespace('features/scenarios', description='Operations related to testing scenarios')
 
 
 @ns.route('/')
@@ -31,12 +31,14 @@ class ScenariosCollection(Resource):
 
         return scenarios_page
 
+    @api.response(201, 'Feature successfully created.')
     @api.expect(testing_scenario)
-    def scenario(self):
+    def post(self):
         """
-        Creates a new testing scenario.
+        Creates a new testing feature.
         """
-        create_testing_scenario(request.json)
+        data = request.json
+        create_testing_scenario(data)
         return None, 201
 
 
