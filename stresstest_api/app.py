@@ -5,6 +5,7 @@ from flask_migrate import Migrate
 from stresstest_api import settings
 from stresstest_api.api.testing.endpoints.scenarios import ns as testing_scenarios_namespace
 from stresstest_api.api.testing.endpoints.features import ns as testing_features_namespace
+from stresstest_api.api.testing.endpoints.steps import ns as testing_steps_namespace
 from stresstest_api.api.restplus import api
 from stresstest_api.database import db
 
@@ -31,6 +32,7 @@ def initialize_app(flask_app):
     api.init_app(blueprint)
     api.add_namespace(testing_scenarios_namespace)
     api.add_namespace(testing_features_namespace)
+    api.add_namespace(testing_steps_namespace)
     flask_app.register_blueprint(blueprint)
 
     db.init_app(flask_app)

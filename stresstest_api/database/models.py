@@ -42,26 +42,35 @@ class Scenario(db.Model):
         return '<Scenario %r>' % self.title
 
 
-# class Step(db.Model):
-#     id = db.Column(db.Integer, primary_key=True, unique=True)
-#     sceanrio_id = db.Column(db.Integer, db.ForeignKey('scenario.id'))
-#
-#     name = db.Column(db.String(40))
-#     sequence = db.Column(db.Integer)
-#     step_request = db.Column(db.Integer, db.ForeignKey('steprequest.id'))
-#     step_validations = db.relationship('StepValidations', backref=db.backref('step', lazy='dynamic'))
-#
-#
-#     def __init__(self, id, scenario_id, name, sequence, step_request, step_validations):
-#         self.id = id
-#         self.sceanrio_id = scenario_id
-#         self.name = name
-#         self.sequence = sequence
-#         self.step_request = step_request
-#         self.step_validations = step_validations
-#
-#     def __repr__(self):
-#         return '<Step %r>' % self.id
+class Step(db.Model):
+    id = db.Column(db.Integer, primary_key=True, unique=True)
+    name = db.Column(db.String(40))
+    sequence = db.Column(db.Integer)
+    method = db.Column(db.String(5))
+    params = db.Column(db.Text)
+    headers = db.Column(db.Text)
+    body = db.Column(db.Text)
+    authorization = db.Column(db.String(10))
+    #step_request = db.Column(db.Integer, db.ForeignKey('steprequest.id'))
+    #step_validations = db.relationship('StepValidations', backref=db.backref('step', lazy='dynamic'))
+
+    sceanrio_id = db.Column(db.Integer, db.ForeignKey('scenario.id'))
+    scenario = db.relationship('Scenario', backref=db.backref('steps', lazy='dynamic'))
+
+    def __init__(self, scenario, name, sequence, method, params, headers, body, authorization):
+        self.scenario = scenario
+        self.name = name
+        self.sequence = sequence
+        self.method = method
+        self.params = params
+        self.headers = headers
+        self.body = body
+        self.authorization = authorization
+        #self.step_request = step_request
+        #self.step_validations = step_validations
+
+    def __repr__(self):
+        return '<Step %r>' % self.id
 #
 # class StepRequest(db.Model):
 #     id = db.Column(db.Integer, primary_key=True, unique=True)

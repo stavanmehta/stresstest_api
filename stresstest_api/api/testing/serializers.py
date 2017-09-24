@@ -11,6 +11,18 @@ testing_scenario = api.model('Testing scenario', {
     'feature': fields.String(attribute='feature.id'),
 })
 
+
+testing_step = api.model('Testing step', {
+    'name': fields.String(required=True, description='Step name'),
+    'sequence': fields.Integer(description='step sequence'),
+    'sceanrio_id': fields.Integer(attribute='scenario.id'),
+    'method': fields.String(description='step sequence'),
+    'params': fields.String(description='request params'),
+    'headers': fields.String(description='request headers'),
+    'body': fields.String(description='requst body'),
+    'authorization': fields.String(description='authorization type')
+})
+
 pagination = api.model('A page of results', {
     'page': fields.Integer(description='Number of this page of results'),
     'pages': fields.Integer(description='Total number of pages of results'),
@@ -20,6 +32,10 @@ pagination = api.model('A page of results', {
 
 page_of_testing_scenarios = api.inherit('Page of testing scenarios', pagination, {
     'items': fields.List(fields.Nested(testing_scenario))
+})
+
+page_of_testing_steps = api.inherit('Page of testing steps', pagination, {
+    'items': fields.List(fields.Nested(testing_step))
 })
 
 feature = api.model('Feature', {
